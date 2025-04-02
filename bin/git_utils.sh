@@ -13,19 +13,19 @@ echo "Janitor finished cleaning."
 }
 
 autocommit(){
-if ! ping -c 1 github.com &> /dev/null; then
-    notify "Нет интернета. Git-операции невозможны."
-    exit 1
-fi
+    if ! ping -c 1 github.com &> /dev/null; then
+        notify "Нет интернета. Git-операции невозможны."
+            exit 1
+    fi
 
-cd "$VAULT_PASS"
-git add .
-git commit -m "Autocommit from OBS-manager $(date +%Y-%m-%d)"
+    cd "$VAULT_PASS"
+    git add .
+    git commit -m "Autocommit from OBS-manager $(date +%Y-%m-%d)"
 
-if ! git push -u origin main ; then
-janitor
-else echo "Autocommit was sucsessful!!!" 
-fi
+    if ! git push -u origin main ; then
+        janitor
+    else echo "Autocommit was sucsessful!!!" 
+    fi
 }
 
 
