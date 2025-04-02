@@ -4,6 +4,7 @@
 janitor(){
 echo "Running git janitor..."
 
+cd "$VAULT_PASS"
 git fsck --full --no-reflogs --unreachable
 git reflog expire --expire=now --all
 git gc --prune=now --aggressive
@@ -17,6 +18,7 @@ if ! ping -c 1 github.com &> /dev/null; then
     exit 1
 fi
 
+cd "$VAULT_PASS"
 git add .
 git commit -m "Autocommit from OBS-manager $(date +%Y-%m-%d)"
 
@@ -27,7 +29,6 @@ fi
 }
 
 
-reclone(){
 
 reclone() {
     # Проверка существования пути
@@ -62,6 +63,6 @@ reclone() {
         return 1
     fi
 }
-}
+
 
 
