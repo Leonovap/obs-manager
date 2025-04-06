@@ -50,8 +50,9 @@ reclone_function() {
 
 #Gitclone
     echo "Cloning repo $GIT_REPO в $CLONE_DIR..."
-    if git -C "$CLONE_DIR" clone "$GIT_REPO"; then
+    if git -C "$CLONE_DIR" clone -b main "$GIT_REPO"; then
         #SCRIPT_DIR=$(dirname "$(realpath "$0")")
+        git -C "$VAULT_PATH" checkout main
         echo "Repo successfully cloned!"
 
         local repo_name=$(basename "$GIT_REPO" .git)
