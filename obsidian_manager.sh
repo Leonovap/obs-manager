@@ -16,6 +16,40 @@ echo "Janitor finished cleaning."
 }
 
 
+# PULL_PUSH MENUE
+
+pull_push_function(){
+        
+   echo "PUSH OR PULL(PS(push)/PU(pull))"
+        read -r INPUT
+                INPUT=$(echo "$INPUT" | tr '[:upper:]' '[:lower:]')
+                if [[ -z "$INPUT"  || "$INPUT" == "pu" || "$INPUT" == "pull"  ]] ;then
+                        autopull_function
+                elif [[ "$INPUT" = "ps" || "$INPUT" = "push"  ]]; then
+                    echo "Are you sure you want to commit and push(Yes/no)?"
+                    read -r SHURESHOT
+                    SHURESHOT=$(echo "$SHURESHOT" | tr '[:upper:]' '[:lower:]' )
+                        if [[ "$SHURESHOT" == "y" || "$SHURESHOT" == "yes" ]] ; then
+                          autocommit_function
+                        elif [[ "$SHURESHOT" == "n" || "$SHURESHOT" == "no" ]]; then
+                          menu
+                        else 
+                          echo "Invalid input, returning to MENU!" 
+                          menu
+                        fi
+                else
+                    echo "Invalid input. Try again"
+                    pull_push_function
+                fi
+
+}
+
+#AUTOPULL
+
+autopull_function(){
+git -C "$VAULT_PATH" pull
+}
+
 ###AUTOCOMMIT
 autocommit_function(){
     if ! ping -c 1 github.com &> /dev/null; then
@@ -195,7 +229,6 @@ everytracker_function(){
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 #Obsidian manager
-chmod +x ${SCRIPT_DIR}/bin/*.sh
 chmod +x ${SCRIPT_DIR}/config/*.conf
 
 
@@ -218,7 +251,7 @@ read -p "Enter your choice: " MENU_PICK
 
 case "$MENU_PICK" in
 
-    1) autocommit_function ;;
+    1) pull_push_function ;;
     2) janitor_function ;;
     3) reclone_function ;;
     4) everytracker_function;;
