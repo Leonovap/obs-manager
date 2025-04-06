@@ -6,6 +6,7 @@ echo "Running git janitor..."
 
 if ! git -C "$VAULT_PATH" fsck --full --no-reflogs --unreachable ; then
     echo -e "Something went wrong :c\n FSCK FAILED!"
+    exit 1
 fi
 
 git -C "$VAULT_PATH" reflog expire --expire=now --all
