@@ -48,6 +48,7 @@ pull_push_function(){
 
 autopull_function(){
 git -C "$VAULT_PATH" pull
+echo "SUCCESSFULLY PULLED USER-CHAN!"
 }
 
 ###AUTOCOMMIT
@@ -56,7 +57,7 @@ autocommit_function(){
         echo -e "Network connection failed!\n Pushing to the GITHUB repository failed! ."
             
     fi
-
+    sleep 5
     git -C "$VAULT_PATH" add . || exit 1
     git -C "$VAULT_PATH" commit -m "Autocommit from OBS-manager $(date +%Y-%m-%d)" || exit 1
     
@@ -147,7 +148,7 @@ today(){
  
  #FILES
     SOURCE_FILE="${TRACKER_PATH}/${TODAY} Трекер привычек и состояний.md"   
-    OLD_FILE="${TRACKER_PATH}/${YESTERDAY} Трекер привычек и состояний.md"
+    OLD_FILE="${TRACKER_DEST}/${YESTERDAY} Трекер привычек и состояний.md"
 
         # COPY AND COPY CHECK
         if [ -f "$SOURCE_FILE" ]; then
@@ -183,7 +184,7 @@ yesterday(){
  
  #FILES
     SOURCE_FILE="${TRACKER_PATH}/${TODAY} Трекер привычек и состояний.md"   
-    OLD_FILE="${TRACKER_PATH}/${YESTERDAY} Трекер привычек и состояний.md"
+    OLD_FILE="${TRACKER_DEST}/${YESTERDAY} Трекер привычек и состояний.md"
 
         # COPY AND COPY CHECK
         if [ -f "$SOURCE_FILE" ]; then
