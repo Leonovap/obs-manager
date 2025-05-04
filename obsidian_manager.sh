@@ -128,11 +128,12 @@ notes_archive_function(){
     LAST_MONTH=$(date -d "last month" +%m)
     ARCHIVE_PATH="$A_NOTES_PATH/$LAST_MONTH-$CURRENT_YEAR"
     #RESULT_FILE_NAME="$LAST_MONTH-$CURRENT_YEAR-Results.md"    
-        echo "$ARCHIVE_PATH"
-        echo "$A_NOTES_PATH"
         cd "$VAULT_PATH/Daily_Notes" || exit 1
         #cat *-"$LAST_MONTH"-*.md >> "$RESULT_FILE_NAME"".md"
-            if [ ! -d "$A_NOTES_PATH" ]; then
+            echo "$A_NOTES_PATH"
+            echo "$ARCHIVE_PATH"
+            echo "$LAST_MONTH"
+            if [ ! -d "$ARCHIVE_PATH" ]; then
                 mkdir -p "$ARCHIVE_PATH"
             fi
             mv *-"${LAST_MONTH}"-*.md "$ARCHIVE_PATH" 2>/dev/null
